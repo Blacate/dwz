@@ -1,7 +1,7 @@
 var Url = require('../model').Url;
 
-exports.find = function(tinyuri) {
-    return Url.findOne({ tinyuri: tinyuri });
+exports.find = function(alias) {
+    return Url.findOne({ alias: alias });
 };
 
 exports.add = function(url) {

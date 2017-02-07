@@ -4,8 +4,8 @@ var UrlService = require('../services/url');
 
 //resume to fullurl
 exports.resume = function(req, res) {
-    var tinyuri = req.params.tinyuri;
-    UrlService.find(tinyuri)
+    var alias = req.params.alias;
+    UrlService.find(alias)
         .then(function(link) {
             if (link == null)
                 res.status(400).send("No Such FullUrl")
@@ -27,16 +27,16 @@ exports.add = function(req, res) {
     else
         _fullurl = "http://" + _link.fullurl;
     var link = {
-        tinyuri: _link.tinyuri,
+        alias: _link.alias,
         fullurl: _fullurl,
         intro: _link.intro
     };
-    UrlService.find(link.tinyuri)
+    UrlService.find(link.alias)
         .then(function(url) {
             if (url == null)
                 return UrlService.add(link)
             else
-                res.status(400).send("The tinyuri has been used");
+                res.status(400).send("The alias has been used");
 
         })
         .then(function() {
@@ -67,7 +67,7 @@ exports.update = function(req, res) {
     else
         _fullurl = "http://" + _link.fullurl;
     var link = {
-        tinyuri: _link.tinyuri,
+        alias: _link.alias,
         fullurl: _fullurl,
         intro: _link.intro
     };

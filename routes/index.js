@@ -6,6 +6,6 @@ router.get('/', function(req, res) {
     res.send('admin page');
 });
 
-router.get('/:tinyuri', url.resume);
+router.get('/:alias', url.resume);
 
 module.exports = router;
