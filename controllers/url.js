@@ -82,9 +82,9 @@ exports.update = function(req, res) {
 
 exports.check = function(req, res) {
     var alias = req.body.tinyurl;
-    if (alias == "api")
+    if (alias == "api") {
         res.send({ unique: false });
-    else {
+    } else {
         UrlService.find(alias)
             .then(function(url) {
                 if (url == null)

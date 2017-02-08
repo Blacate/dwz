@@ -12,9 +12,9 @@ app.directive('ensureUnique', ['$http', function($http) {
                 $http({
                     method: 'POST',
                     url: '/api/check',
-                    data: { 'tinyurl': attrs.viewValue }
+                    data: { 'tinyurl': ele.val() }
                 }).success(function(data, status, headers, cfg) {
-                    c.$setValidity('unique', data.isUnique);
+                    c.$setValidity('unique', data.unique);
                 }).error(function(data, status, headers, cfg) {
                     c.$setValidity('unique', false);
                 });
