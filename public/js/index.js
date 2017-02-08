@@ -22,3 +22,18 @@ app.directive('ensureUnique', ['$http', function($http) {
         }
     };
 }]);
+
+app.run(function($rootScope, $http) {
+    $rootScope.shortenurlForm = function() {
+        // console.log(JSON.stringify($rootScope.shortenurl));
+        $http({
+            method: 'POST',
+            url: '/api/add',
+            data: JSON.stringify($rootScope.shortenurl)
+        }).success(function(data, status, headers, cfg) {
+            console.log("success");
+        }).error(function(data, status, headers, cfg) {
+            console.log("fail");
+        })
+    };
+});
