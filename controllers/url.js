@@ -27,7 +27,7 @@ exports.add = function(req, res) {
     else
         _fullurl = "http://" + _link.fullurl;
     var link = {
-        alias: _link.alias,
+        alias: _link.tinyurl,
         fullurl: _fullurl,
         intro: _link.intro
     };
@@ -44,7 +44,7 @@ exports.add = function(req, res) {
         })
         .catch(function(err) {
             res.status(400).send(err.toString());
-        })
+        });
 };
 
 exports.delete = function(req, res) {
@@ -78,4 +78,26 @@ exports.update = function(req, res) {
         .catch(function(err) {
             res.status(400).send(err.toString());
         });
+};
+
+exports.check = function(req, res) {
+    var alias = req.body.tinyurl;
+    if (alias == "api")
+        res.send({ unique: false });
+    else {
+        UrlService.find(alias)
+            .then(function(url) {
+                if (url == null)
+                    res.send({
+                        unique: true
+                    });
+                else
+                    res.send({
+                        unique: false
+                    });
+            })
+            .catch(function(err) {
+                res.status(400).send(err.toString());
+            });
+    }
 };

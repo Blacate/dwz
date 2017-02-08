@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var url = require('../controllers/url');
+var urlController = require('../controllers/url');
+var pageController = require('../controllers/page');
 
-router.get('/', function(req, res) {
-    res.send('admin page');
-});
+router.get('/', pageController.index);
 
-router.get('/:alias', url.resume);
+router.get('/:alias', urlController.resume);
 
 module.exports = router;

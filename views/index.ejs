@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="dwz">
+<head>
+    <meta charset="UTF-8">
+    <title><%= siteName %></title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+</head>
+<body>
+   <div class="main">
+       <header>
+            <img src="https://moetu.org/images/2017/02/08/logof5c5c.png" alt="logo" border="0" />
+       </header>
+       <div class="content" ng-controller="ContentController">
+            <form name="shortenurl_form" novalidate ng-submit="shortenurlForm()">
+                <fieldset>
+                    <legend>短网址</legend>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Tinyurl</label>
+                            <input type="text" placeholder="dwz" name="tinyurl" ng-model="shortenurl.tinyurl" ensure-unique="tinyurl" ng-pattern="/^[A-Za-z0-9_]+$/" ng-minlength="1" required />
+                            <div class="error" ng-show="shortenurl_form.tinyurl.$dirty && shortenurl_form.tinyurl.$invalid">
+                                <small class="error" ng-show="shortenurl_form.tinyurl.$error.required">
+                                    The tinyurl is required.
+                                </small>
+                                <small class="error" ng-show="shortenurl_form.tinyurl.$error.unique">
+                                    That tinyurl is taken, please try another
+                                </small>
+                                <small class="error" ng-show="shortenurl_form.tinyurl.$error.pattern">
+                                    please input number or letter.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Fullurl</label>
+                            <input type="text" placeholder="http://dwz.cn" name="fullurl" ng-model="shortenurl.fullurl" required />
+                            <div class="error" ng-show="shortenurl_form.fullurl.$dirty && shortenurl_form.fullurl.$invalid">
+                                <small class="error" ng-show="shortenurl_form.fullurl.$error.required">
+                                    The fullurl is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Intro</label>
+                            <input type="text" placeholder="百度短网址" name="intro" ng-model="shortenurl.intro" required />
+                            <div class="error" ng-show="shortenurl_form.intro.$dirty && shortenurl_form.intro.$invalid">
+                                <small class="error" ng-show="shortenurl_form.intro.$error.required">
+                                    The intro is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" ng-disabled="shortenurl_form.$invalid" class="button radius">Submit</button>
+                </fieldset>
+            </form>
+       </div>
+       <footer ng-controller="FooterController"><p>&copy;{{ today | date: 'yyyy' }} Blacate</p></footer>
+    <script src="/js/index.js"></script>       
+   </div>
+</body>
+</html>
+
