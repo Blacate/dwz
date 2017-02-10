@@ -39,24 +39,46 @@ app.run(function($rootScope, $http) {
                     cancelButtonText: "OK",
                     confirmButtonColor: "#698693",
                     confirmButtonText: "COPY",
-                    closeOnConfirm: false
+                    closeOnConfirm: false,
+                    closeOnCancel: false
                 },
-                function() {
-                    var clipboard = new Clipboard('button.confirm', {
-                        text: function() {
-                            return finalUrl;
-                        }
-                    });
-                    clipboard.on('success', function(e) {
-                        swal("Copied!", "The url has been copied.", "success");
-                    });
-                    clipboard.on('error', function(e) {
-                        swal("Failed!", "The url can't be copied.", "error");
-                    })
+                function(isConfirm) {
+                    if (isConfirm) {
+                        var clipboard = new Clipboard('button.confirm', {
+                            text: function() {
+                                return finalUrl;
+                            }
+                        });
+                        clipboard.on('success', function(e) {
+                            swal({
+                                    title: "Copied!",
+                                    text: "The url has been copied.",
+                                    type: "success",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    location.reload();
+                                });
+                        });
+                        clipboard.on('error', function(e) {
+                            swal({
+                                    title: "Failed!",
+                                    text: "The url can't be copied.",
+                                    type: "error",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    location.reload();
+                                });
+                        });
+                    } else {
+                        location.reload();
+                    }
+
 
                 });
         }).error(function(data, status, headers, cfg) {
-            console.log("fail");
+            swal("Failed!", "Please try again!", "error");
         })
     };
 });
