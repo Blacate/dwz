@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="dwz">
+
 <head>
     <meta charset="UTF-8">
-    <title><%= siteName %></title>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+    <title>
+        <%= siteName %>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="//cdn.bootcss.com/foundation/4.3.2/css/foundation.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+    <script src="//cdn.bootcss.com/angular.js/1.2.0rc2/angular.min.js"></script>
+    <script src="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="//cdn.bootcss.com/clipboard.js/1.5.16/clipboard.min.js"></script>
 </head>
+
 <body>
-   <div class="main">
-       <header>
-            <img src="https://moetu.org/images/2017/02/08/logof5c5c.png" alt="logo" border="0" />
-       </header>
-       <div class="content">
+    <div class="main">
+        <header>
+            <img src="/img/logo.png" alt="logo" border="0" />
+        </header>
+        <div class="content">
             <form name="shortenurl_form" novalidate ng-submit="shortenurlForm()">
                 <fieldset>
                     <legend>短网址</legend>
@@ -55,13 +63,15 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" ng-disabled="shortenurl_form.$invalid" class="button radius">Submit</button>
+                    <button type="submit" ng-disabled="shortenurl_form.$invalid" class="button radius submit">Submit</button>
                 </fieldset>
             </form>
-       </div>
-       <footer ng-controller="FooterController"><p>&copy;{{ today | date: 'yyyy' }} Blacate</p></footer>
-    <script src="/js/index.js"></script>       
-   </div>
+        </div>
+        <footer ng-controller="FooterController">
+            <p>&copy;{{ today | date: 'yyyy' }} <%= owner %></p>
+        </footer>
+        <script src="/js/index.js"></script>
+    </div>
 </body>
-</html>
 
+</html>

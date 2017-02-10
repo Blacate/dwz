@@ -25,13 +25,36 @@ app.directive('ensureUnique', ['$http', function($http) {
 
 app.run(function($rootScope, $http) {
     $rootScope.shortenurlForm = function() {
-        // console.log(JSON.stringify($rootScope.shortenurl));
         $http({
             method: 'POST',
             url: '/api/add',
             data: JSON.stringify($rootScope.shortenurl)
         }).success(function(data, status, headers, cfg) {
-            console.log("success");
+            var finalUrl = this.location.href + $rootScope.shortenurl.tinyurl;
+            swal({
+                    title: "TinyUrl",
+                    text: finalUrl,
+                    type: "success",
+                    showCancelButton: true,
+                    cancelButtonText: "OK",
+                    confirmButtonColor: "#698693",
+                    confirmButtonText: "COPY",
+                    closeOnConfirm: false
+                },
+                function() {
+                    var clipboard = new Clipboard('button.confirm', {
+                        text: function() {
+                            return finalUrl;
+                        }
+                    });
+                    clipboard.on('success', function(e) {
+                        swal("Copied!", "The url has been copied.", "success");
+                    });
+                    clipboard.on('error', function(e) {
+                        swal("Failed!", "The url can't be copied.", "error");
+                    })
+
+                });
         }).error(function(data, status, headers, cfg) {
             console.log("fail");
         })

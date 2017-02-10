@@ -5,18 +5,18 @@
 
 header {
     width: 100%;
+    padding-top: 80px;
 }
 
 header>img {
     width: 160px;
     display: block;
     margin: 0 auto;
-    padding-top: 80px;
     padding-bottom: 20px;
 }
 
 .content {
-    width: 400px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -35,4 +35,24 @@ input.ng-valid {
 
 .row {
     border: 0px solid green;
+}
+
+button.submit {
+    display: block;
+    margin: 0 auto 20px!important;
+}
+
+@media only screen and (max-width: 480px) {
+    .main {
+        width: 95%!important;
+    }
+    header {
+        padding-top: 20px;
+    }
+    header>img {
+        padding-bottom: 0;
+    }
+    .content fieldset {
+        margin-top: 5px;
+    }
 }
