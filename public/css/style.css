@@ -42,6 +42,11 @@ button.submit {
     margin: 0 auto 20px!important;
 }
 
+header form button {
+    display: block!important;
+    margin: 20px auto!important;
+}
+
 @media only screen and (max-width: 480px) {
     .main {
         width: 95%!important;
@@ -55,4 +60,19 @@ button.submit {
     .content fieldset {
         margin-top: 5px;
     }
+}
+
+.showModal {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    top: 100px;
+}
+
+.showBg {
+    display: block!important;
+}
+
+.hideError {
+    display: none;
 }

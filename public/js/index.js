@@ -1,36 +1,54 @@
 var app = angular.module('dwz', []);
 
-app.controller('FooterController', function($scope) {
-    $scope.today = new Date();
+app.controller('HeaderController', function($rootScope, $scope, $http) {
+    $rootScope.closeModal = function() {
+        $rootScope.showModalBg = false;
+        $rootScope.showLogin = false;
+    }
+    $scope.closeLogin = function() {
+        $rootScope.showModalBg = false;
+        $rootScope.showLogin = false;
+    }
+    $scope.getLinks = function() {
+        $http({
+            method: 'GET',
+            url: '/api/links',
+        }).success(function(data, status, headers, cfg) {
+            console.log(data.links);
+        }).error(function(data, status, headers, cfg) {
+            if (status == 401) {
+                $rootScope.showModalBg = true;
+                $rootScope.showLogin = true;
+            } else {
+
+            }
+        })
+
+    }
+
+    $scope.Login = function() {
+        $http({
+            method: 'POST',
+            url: '/api/login',
+            data: JSON.stringify($scope.login)
+        }).success(function(data, status, headers, cfg) {
+            $scope.closeLogin();
+            $scope.getLinks();
+        }).error(function() {
+            swal("Login Failed", "THe username/password is not correct", "error");
+        });
+    }
 });
 
-app.directive('ensureUnique', ['$http', function($http) {
-    return {
-        require: 'ngModel',
-        link: function(scope, ele, attrs, c) {
-            scope.$watch(attrs.ngModel, function() {
-                $http({
-                    method: 'POST',
-                    url: '/api/check',
-                    data: { 'tinyurl': ele.val() }
-                }).success(function(data, status, headers, cfg) {
-                    c.$setValidity('unique', data.unique);
-                }).error(function(data, status, headers, cfg) {
-                    c.$setValidity('unique', false);
-                });
-            });
-        }
-    };
-}]);
-
-app.run(function($rootScope, $http) {
-    $rootScope.shortenurlForm = function() {
+app.controller('ContentController', function($scope, $http) {
+    $('.error').removeClass("hideError");
+    $scope.shortenurlForm = function() {
         $http({
             method: 'POST',
             url: '/api/add',
-            data: JSON.stringify($rootScope.shortenurl)
+            data: JSON.stringify($scope.shortenurl)
         }).success(function(data, status, headers, cfg) {
-            var finalUrl = this.location.href + $rootScope.shortenurl.tinyurl;
+            var finalUrl = this.location.href + $scope.shortenurl.tinyurl;
             swal({
                     title: "TinyUrl",
                     text: finalUrl,
@@ -82,3 +100,25 @@ app.run(function($rootScope, $http) {
         })
     };
 });
+app.controller('FooterController', function($scope) {
+    $scope.today = new Date();
+});
+
+app.directive('ensureUnique', ['$http', function($http) {
+    return {
+        require: 'ngModel',
+        link: function(scope, ele, attrs, c) {
+            scope.$watch(attrs.ngModel, function() {
+                $http({
+                    method: 'POST',
+                    url: '/api/check',
+                    data: { 'tinyurl': ele.val() }
+                }).success(function(data, status, headers, cfg) {
+                    c.$setValidity('unique', data.unique);
+                }).error(function(data, status, headers, cfg) {
+                    c.$setValidity('unique', false);
+                });
+            });
+        }
+    };
+}]);

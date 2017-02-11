@@ -101,3 +101,15 @@ exports.check = function(req, res) {
             });
     }
 };
+
+exports.fetch = function(req, res) {
+    UrlService.fetch()
+        .then(function(result) {
+            res.send({
+                links: result
+            });
+        })
+        .catch(function(err) {
+            res.status(400).send(err.toString());
+        });
+};

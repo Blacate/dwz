@@ -1,6 +1,7 @@
 var express = require('express');
 var favicon = require('serve-favicon');
 var path = require('path');
+var session = require('express-session');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -17,6 +18,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+var MongoStore = require('connect-mongo')(session);
+
+app.use(session({
+    secret: config.cookieSecret,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
+    store: new MongoStore({
+        url: config.mongodb,
+        collection: 'sessions',
+        auto_reconnect: true
+    })
+}));
 
 app.use('/api', api);
 app.use('/', index);
