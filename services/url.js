@@ -1,7 +1,7 @@
 var Url = require('../model').Url;
 
-exports.find = function(alias) {
-    return Url.findOne({ alias: alias });
+exports.find = function(tinyurl) {
+    return Url.findOne({ tinyurl: tinyurl });
 };
 
 exports.add = function(url) {
@@ -17,5 +17,5 @@ exports.update = function(id, url) {
 };
 
 exports.fetch = function() {
-    return Url.find({});
+    return Url.find({}).sort({ "tinyurl": 1 });
 };

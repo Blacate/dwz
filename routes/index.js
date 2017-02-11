@@ -5,6 +5,6 @@ var pageController = require('../controllers/page');
 
 router.get('/', pageController.index);
 
-router.get('/:alias', urlController.resume);
+router.get('/:tinyurl', urlController.resume);
 
 module.exports = router;

@@ -10,9 +10,9 @@ router.get('/links', Util.checkLogin, urlController.fetch);
 
 router.post('/add', urlController.add);
 
-router.delete('/delete/:id', urlController.delete);
+router.delete('/delete/:id', Util.checkLogin, urlController.delete);
 
-router.put('/update/:id', urlController.update);
+router.put('/update/:id', Util.checkLogin, urlController.update);
 
 router.post('/check', urlController.check);
 

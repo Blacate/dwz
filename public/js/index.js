@@ -3,23 +3,36 @@ var app = angular.module('dwz', []);
 app.controller('HeaderController', function($rootScope, $scope, $http) {
     $rootScope.closeModal = function() {
         $rootScope.showModalBg = false;
-        $rootScope.showLogin = false;
+        $scope.showLogin = false;
+        $scope.showList = false;
+        $scope.showEdit = false;
     }
     $scope.closeLogin = function() {
         $rootScope.showModalBg = false;
-        $rootScope.showLogin = false;
+        $scope.showLogin = false;
+    }
+    $scope.closeList = function() {
+        $rootScope.showModalBg = false;
+        $scope.showList = false;
+    }
+    $scope.closeEdit = function() {
+        $scope.showEdit = false;
+        $scope.showList = true;
     }
     $scope.getLinks = function() {
         $http({
             method: 'GET',
             url: '/api/links',
         }).success(function(data, status, headers, cfg) {
-            console.log(data.links);
+            $scope.links = data.links;
+            $scope.showList = true;
+            $rootScope.showModalBg = true;
         }).error(function(data, status, headers, cfg) {
             if (status == 401) {
                 $rootScope.showModalBg = true;
-                $rootScope.showLogin = true;
+                $scope.showLogin = true;
             } else {
+
 
             }
         })
@@ -38,6 +51,36 @@ app.controller('HeaderController', function($rootScope, $scope, $http) {
             swal("Login Failed", "THe username/password is not correct", "error");
         });
     }
+
+    $scope.delLink = function(index) {
+        var link = $scope.links[index];
+        $http({
+                method: 'DELETE',
+                url: '/api/delete/' + link._id
+            })
+            .success(function() {
+                $scope.links.splice(index, 1);
+            })
+    }
+
+    $scope.updateLink = function(index) {
+        $scope.showList = false;
+        $scope.showEdit = true;
+        var link = $scope.links[index];
+        $scope.edit = link;
+
+    }
+    $scope.update = function() {
+        $http({
+                method: 'PUT',
+                url: '/api/update/' + $scope.edit._id,
+                data: JSON.stringify($scope.edit)
+            })
+            .success(function() {
+                $scope.showEdit = false;
+                $scope.getLinks();
+            })
+    }
 });
 
 app.controller('ContentController', function($scope, $http) {
@@ -54,9 +97,9 @@ app.controller('ContentController', function($scope, $http) {
                     text: finalUrl,
                     type: "success",
                     showCancelButton: true,
-                    cancelButtonText: "OK",
+                    cancelButtonText: "Close",
                     confirmButtonColor: "#698693",
-                    confirmButtonText: "COPY",
+                    confirmButtonText: " Copy ",
                     closeOnConfirm: false,
                     closeOnCancel: false
                 },

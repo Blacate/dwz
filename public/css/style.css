@@ -60,6 +60,10 @@ header form button {
     .content fieldset {
         margin-top: 5px;
     }
+    .linkList {
+        width: 96%!important;
+        margin-left: -48%;
+    }
 }
 
 .showModal {
@@ -75,4 +79,13 @@ header form button {
 
 .hideError {
     display: none;
+}
+
+.linkList {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.linkList table {
+    margin: 20px auto!important;
 }

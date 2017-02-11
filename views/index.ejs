@@ -14,7 +14,6 @@
     <script src="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script src="//cdn.bootcss.com/clipboard.js/1.5.16/clipboard.min.js"></script>
     <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    
 </head>
 
 <body>
@@ -30,7 +29,41 @@
                     <input type="password" name="password" ng-model="login.password" required />
                     <button class="button radius" type="submit" ng-disabled="login_form.$invalid">Sign in</button>
                 </form>
-                    <a class="close-reveal-modal" ng-click="closeLogin()">&times;</a>
+                <a class="close-reveal-modal" ng-click="closeLogin()">&times;</a>
+            </div>
+            <div class="reveal-modal small linkList" ng-class= "{'showModal':showList}">
+                <table style="table-layout：fixed">
+                    <thead>
+                        <tr>
+                            <th>Tinyurl</th>
+                            <th >Intro</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="link in links">
+                            <td style="word-wrap:break-word;word-break:break-all;">{{link.tinyurl}}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{link.intro}}</td>
+                            <td style="text-align: center"><a class="btn btn-info btn-sm" ng-click="updateLink($index)">修改</a></td>
+                            <td style="text-align: center"><a class="btn btn-danger btn-sm" ng-click="delLink($index)">删除</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="close-reveal-modal" ng-click="closeList()">&times;</a>
+            </div>
+            <div class="reveal-modal tiny" ng-class= "{'showModal':showEdit}">
+            <h2>Edit link</h2>
+                <form name="edit_form" novalidate ng-submit="update()">
+                    <label>Tinyurl</label>
+                    <input type="text" name="tinyurl" ng-model="edit.tinyurl" required />
+                    <label>Fullurl</label>
+                    <input type="text" name="fullurl" ng-model="edit.fullurl" required />
+                    <label>intro</label>
+                    <input type="text" name="intro" ng-model="edit.intro" required />
+                    <button class="button radius" type="submit" ng-disabled="edit_form.$invalid">Update</button>
+                </form>
+                <a class="close-reveal-modal" ng-click="closeEdit()">&times;</a>
             </div>
         </header>
         <div class="content" ng-controller="ContentController">
@@ -86,7 +119,7 @@
             </p>
         </footer>
         <script src="/js/index.js"></script>
-        <div class="reveal-modal-bg" ng-class="{'showBg':showModalBg}" ng-click="closeModal()"></div>        
+        <div class="reveal-modal-bg" ng-class="{'showBg':showModalBg}" ng-click="closeModal()"></div>
     </div>
 </body>
 
