@@ -9,7 +9,7 @@ module.exports = {
     siteName: "Blacate's dwz",
     owner: "Blacate",
     loginInfo: {
-        username: "name",
+        username: "username",
         password: "password"
     }
 }
