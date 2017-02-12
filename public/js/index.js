@@ -32,8 +32,7 @@ app.controller('HeaderController', function($rootScope, $scope, $http) {
                 $rootScope.showModalBg = true;
                 $scope.showLogin = true;
             } else {
-
-
+                swal("Failed", "Please try again", "error");
             }
         })
 
@@ -47,8 +46,11 @@ app.controller('HeaderController', function($rootScope, $scope, $http) {
         }).success(function(data, status, headers, cfg) {
             $scope.closeLogin();
             $scope.getLinks();
-        }).error(function() {
-            swal("Login Failed", "THe username/password is not correct", "error");
+        }).error(function(data, status, headers, cfg) {
+            if (status == 409)
+                swal("Waringing", data, "waringing");
+            else
+                swal("Login Failed", "The username/password is not correct", "error");
         });
     }
 
@@ -60,6 +62,9 @@ app.controller('HeaderController', function($rootScope, $scope, $http) {
             })
             .success(function() {
                 $scope.links.splice(index, 1);
+            })
+            .error(function() {
+                swal("Failed", "Please try again", "error");
             })
     }
 
@@ -80,6 +85,9 @@ app.controller('HeaderController', function($rootScope, $scope, $http) {
                 $scope.showEdit = false;
                 $scope.getLinks();
             })
+            .error(function() {
+                swal("Failed", "Please try again", "error");
+            });
     }
 });
 

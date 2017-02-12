@@ -16,6 +16,6 @@ router.put('/update/:id', Util.checkLogin, urlController.update);
 
 router.post('/check', urlController.check);
 
-router.post('/login', userController.login);
+router.post('/login', Util.checkNotLogin, userController.login);
 
 module.exports = router;
