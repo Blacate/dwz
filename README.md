@@ -1,7 +1,7 @@
 dwz - 个人短网址小应用
 ==============================
 [preview](https://powerful-escarpment-34251.herokuapp.com/)  
-click the logo for links list
+ps:click the logo for links list
 ```
 username:username
 password:password
