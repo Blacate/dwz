@@ -15,9 +15,9 @@ password:password
 
 ## 2. How to run
 ```bash
-$ npm install  # install dependencies
-$ cp config.example.js config.js ##set site configuration
-$ npm run dev    # start Node Server at port 3000
+$ npm install  			 # install dependencies
+$ cp config.example.js config.js # set site configuration
+$ npm run dev    		 # start Node Server at port 3000
 ```
 
 ## 3. API
