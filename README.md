@@ -121,7 +121,7 @@ tinyurl: bd
 ```
 
 #### 响应
-if unique  
+if used  
 `unique: false`  
 else  
 `unique: true`
