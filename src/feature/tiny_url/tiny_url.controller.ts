@@ -20,7 +20,14 @@ export class TinyUrlController {
 
   @Get('query/:name')
   async getByName(@Param('name') name: string) {
-    return await this.tinyUrlService.getByName(name);
+    const tinyUrl = await this.tinyUrlService.getByName(name);
+    return tinyUrl ? tinyUrl.full_url : '';
+  }
+
+  @Get('check/:name')
+  async checkUnique(@Param('name') name: string) {
+    const tinyUrl = await this.tinyUrlService.getByName(name);
+    return Boolean(tinyUrl);
   }
 
   @Post('update/:id')
